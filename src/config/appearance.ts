@@ -48,10 +48,10 @@ export const appearanceConfig: AppearanceConfig = {
     asciiFormat: "woff"
   },
   sizing: {
-    textSize: "14px",
-    cjkSize: "13px",
-    cjkLinkSize: "15px",
+    textSize: "16px",
+    cjkSize: "15px",
+    cjkLinkSize: "16px",
     textCell: "8px",
-    homeSize: "14px"
+    homeSize: "16px"
   }
 };

@@ -64,7 +64,7 @@ export const siteConfig: SiteConfig = {
       title: "Resume",
       items: [
         {
-          label: "Resume (PDF)",
+          label: "PDF",
           href: "/resume.pdf",
           prefix: "~ download"
         }
@@ -77,7 +77,7 @@ export const siteConfig: SiteConfig = {
           label: "Camelcamelcamel for Reddit marketplaces",
           href: "https://alienalienalien.com/",
           external: true,
-          prefix: "~ view"
+          prefix: "~ visit"
         }
       ]
     }
