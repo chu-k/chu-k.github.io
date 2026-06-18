@@ -12,7 +12,8 @@ type Props = {
 
 const volumes = Astro.props.volumes;
 const asciiText = siteConfig.homeAsciiArt;
-const homeLineWidth = Math.max(...asciiText.split("\n").map(cellWidth));
+const hasAscii = asciiText.trim().length > 0;
+const homeLineWidth = hasAscii ? Math.max(...asciiText.split("\n").map(cellWidth)) : 80;
 const homeLines = siteConfig.homeSections.flatMap((section) => renderHomeSection(section, volumes));
 const homeText = `${homeLines.join("\n")}\n`;
 const asciiHtml = textHtml(asciiText);
@@ -95,30 +96,38 @@ function renderLabel(item: HomeItem, label: string): string {
 ---
 
 <section class="home-shell">
-  <div class="ascii-hero">
-    <pre
-      id="home-ascii"
-      class="textmode-pre home-pre ascii-pre"
-      data-ascii-text={asciiAttr}
-      set:html={asciiHtml}
-    ></pre>
-    <pre
-      id="home-ascii-glitch"
-      class="textmode-pre home-pre ascii-pre ascii-glitch"
-      aria-hidden="true"
-    ></pre>
-  </div>
+  {
+    hasAscii && (
+      <div class="ascii-hero">
+        <pre
+          id="home-ascii"
+          class="textmode-pre home-pre ascii-pre"
+          data-ascii-text={asciiAttr}
+          set:html={asciiHtml}
+        ></pre>
+        <pre
+          id="home-ascii-glitch"
+          class="textmode-pre home-pre ascii-pre ascii-glitch"
+          aria-hidden="true"
+        ></pre>
+      </div>
+    )
+  }
   <PreBlock class="home-pre" html={homeText} />
 </section>
 
-<script>
-  import { initHomeAsciiGlitch } from "../../modules/textmode/glitch/home";
+{
+  hasAscii && (
+    <script>
+      import { initHomeAsciiGlitch } from "../../modules/textmode/glitch/home";
 
-  window.addEventListener(
-    "load",
-    () => {
-      window.setTimeout(initHomeAsciiGlitch, 1200);
-    },
-    { once: true, passive: true }
-  );
-</script>
+      window.addEventListener(
+        "load",
+        () => {
+          window.setTimeout(initHomeAsciiGlitch, 1200);
+        },
+        { once: true, passive: true }
+      );
+    </script>
+  )
+}

@@ -62,6 +62,12 @@ const particlesEnabled = effectsConfig.particles.enable;
   </head>
   <body data-mobile-fit-breakpoint={mobileFitBreakpoint} data-particles-enabled={particlesEnabled}>
     <slot />
+    <footer class="site-footer" aria-label="Attribution">
+      <p class="site-footer-line">
+        Theme attribution:
+        <a href="https://github.com/CuB3y0nd/entropic" target="_blank" rel="noreferrer">Entropic</a>
+      </p>
+    </footer>
     <Analytics />
     <script>
       import { installTextmodeBootstrap } from "../../modules/textmode/bootstrap/install";
