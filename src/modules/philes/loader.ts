@@ -78,7 +78,20 @@ function assertRequiredFrontmatter(id: string, data: Frontmatter): void {
 }
 
 async function listPhiles(dir: string): Promise<string[]> {
-  const entries = await fs.readdir(dir, { withFileTypes: true });
+  let entries: Dirent<string>[];
+
+  try {
+    entries = await fs.readdir(dir, { withFileTypes: true });
+  } catch (error) {
+    const code = (error as NodeJS.ErrnoException).code;
+
+    if (code === "ENOENT") {
+      return [];
+    }
+
+    throw error;
+  }
+
   const files = await Promise.all(
     entries.map((entry: Dirent<string>) => {
       const entryPath = path.join(dir, entry.name);
